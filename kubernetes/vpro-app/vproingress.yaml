@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: my-app
+            name: githubactions-stack-githubactions-charts
             port:
-              number: 8080
+              number: 80
