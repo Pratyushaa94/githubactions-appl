@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vprodb
-        image: vprofile/vprofiledb 
+        image: 925471403627.dkr.ecr.eu-west-1.amazonaws.com/vprofiledb:latest
         ports:
         - name: vprodb-port
           containerPort: 3306
@@ -26,7 +26,3 @@ spec:
              secretKeyRef:
                name: app-secret
                key: db-pass
-#        env:
-#         - name: MYSQL_ROOT_PASSWORD
-#           value: "vprodbpass"
-
