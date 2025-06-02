@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vprodb
-        image: 925471403627.dkr.ecr.eu-west-1.amazonaws.com/vprofiledb:latest
+        image: 925471403627.dkr.ecr.eu-west-1.amazonaws.com/githubactions-appl:latest
         ports:
         - name: vprodb-port
           containerPort: 3306
