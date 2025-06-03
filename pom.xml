@@ -1,238 +1,212 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/maven-v4_0_0.xsd">
 
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <!-- Added Spring Boot parent POM to manage dependencies and versions -->
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.13</version> <!-- Upgraded Spring Boot version -->
-        <relativePath/> 
-    </parent>
-
     <groupId>com.visualpathit</groupId>
     <artifactId>vprofile</artifactId>
-    <version>v2</version>
     <packaging>war</packaging>
+    <version>v2</version>
     <name>Visualpathit VProfile Webapp</name>
     <url>http://maven.apache.org</url>
-
     <properties>
-        <java.version>1.8</java.version> <!-- Added properties for Java version -->
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-
-        <!-- Added versions for dependencies to keep consistent -->
+        <spring.version>4.2.0.RELEASE</spring.version>
+        <spring-security.version>4.0.2.RELEASE</spring-security.version>
+        <spring-data-jpa.version>1.8.2.RELEASE</spring-data-jpa.version>
+        <hibernate.version>4.3.11.Final</hibernate.version>
+        <hibernate-validator.version>5.2.1.Final</hibernate-validator.version>
         <mysql-connector.version>8.0.33</mysql-connector.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <jstl.version>1.2</jstl.version>
+        <junit.version>4.10</junit.version>
         <logback.version>1.1.3</logback.version>
-        <junit.version>4.13.2</junit.version>
-        <spring-security.version>5.7.9</spring-security.version>
-        <spring-data-jpa.version>2.7.13</spring-data-jpa.version>
-        <hibernate.version>5.6.15.Final</hibernate.version>
-        <hibernate-validator.version>6.1.7.Final</hibernate-validator.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
-        <!-- Replaced manual Spring dependencies with Spring Boot starters for compatibility -->
-
-        <!-- Added spring-boot-starter-web -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
         </dependency>
-
-        <!-- Added spring-boot-starter-security with explicit version -->
+	    
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+	    
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
             <version>${spring-security.version}</version>
         </dependency>
 
-        <!-- Added spring-boot-starter-data-jpa -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
             <version>${spring-data-jpa.version}</version>
         </dependency>
 
-        <!-- Added spring-boot-starter-actuator for metrics and health checks -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
 
-        <!-- Updated MySQL Connector version -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector.version}</version>
         </dependency>
 
-        <!-- Added Hibernate Validator -->
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate-validator.version}</version>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${commons-dbcp.version}</version>
         </dependency>
 
-        <!-- Added Micrometer Prometheus registry dependency for metrics -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
-
-        <!-- Added memcached client -->
-        <dependency>
-            <groupId>net.spy</groupId>
-            <artifactId>spymemcached</artifactId>
-            <version>2.12.3</version>
-        </dependency>
-
-        <!-- Added RabbitMQ Spring and client dependencies -->
-        <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit</artifactId>
-            <version>2.4.12</version> <!-- Compatible with Spring Boot 2.7 -->
-        </dependency>
-
-        <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
-            <version>5.16.0</version>
-        </dependency>
-
-        <!-- Updated Elasticsearch REST client to a modern version -->
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>7.17.13</version>
-        </dependency>
-
-        <!-- Logging dependency -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-
-        <!-- Added Servlet API with provided scope -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
         </dependency>
 
-        <!-- Added JSTL -->
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>jstl-impl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
-        <!-- Added commons-io and commons-fileupload -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.8.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.4</version>
-        </dependency>
-
-        <!-- Testing dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>4.6.1</version>
+	    <groupId>org.mockito</groupId>
+    	    <artifactId>mockito-core</artifactId>
+            <version>1.9.5</version>
             <scope>test</scope>
-        </dependency>
-
+	</dependency>
+	<dependency>
+	     <groupId>org.springframework</groupId>
+	     <artifactId>spring-test</artifactId>
+	     <version>3.2.3.RELEASE</version>
+	     <scope>test</scope>
+	</dependency>
+	<dependency>
+	     <groupId>javax.servlet</groupId>
+	     <artifactId>javax.servlet-api</artifactId>
+	     <version>3.1.0</version>
+	     <scope>provided</scope>
+	</dependency>		
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Added Gson for JSON processing -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.9</version>
-        </dependency>
+    	    <groupId>org.hamcrest</groupId>
+    	    <artifactId>hamcrest-all</artifactId>
+    	    <version>1.3</version>
+    	    <scope>test</scope>
+		</dependency>
+	        <dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.1</version>
+		</dependency>
+		 <!-- Memcached Dependency -->
+		<dependency>
+		    <groupId>net.spy</groupId>
+		    <artifactId>spymemcached</artifactId>
+		    <version>2.12.3</version>
+		</dependency>				
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.4</version>
+	    </dependency>
+	    <!-- RabbitMQ Dependency -->
+	    <dependency>
+	            <groupId>org.springframework.amqp</groupId>
+	            <artifactId>spring-rabbit</artifactId>
+	            <version>1.7.1.RELEASE</version>
+	    </dependency>
+	
+	    <dependency>
+	            <groupId>com.rabbitmq</groupId>
+	            <artifactId>amqp-client</artifactId>
+	            <version>4.0.2</version>
+	   </dependency>
+	   <!-- Elasticsearch Dependency-->
+		<dependency>
+		    <groupId>org.elasticsearch</groupId>
+		    <artifactId>elasticsearch</artifactId>
+		    <version>5.6.4</version>
+		</dependency>
+		<!-- Transport Client-->
+		<dependency>
+		    <groupId>org.elasticsearch.client</groupId>
+		    <artifactId>transport</artifactId>
+		    <version>5.6.4</version>
+		</dependency>
+		<!--gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.2</version>
+		</dependency>
     </dependencies>
-
-    <build>
+     <build>
         <plugins>
-            <!-- Updated Jetty plugin version and added config for hot reload -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.50.v20221201</version>
+                <version>9.2.11.v20150529</version>
                 <configuration>
-                    <scanIntervalSeconds>10</scanIntervalSeconds> <!-- Added scanning for quick reload -->
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
                 </configuration>
             </plugin>
-
-            <!-- Added maven-war-plugin for war packaging -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
-            </plugin>
-
-            <!-- Added JaCoCo for code coverage -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
-                <executions>
-                    <execution>
-                        <id>jacoco-initialize</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                    </execution>
-                    <execution>
-                        <id>jacoco-report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <phase>verify</phase>
-                    </execution>
-                </executions>
-            </plugin>
+		<!-- CODE COVERAGE -->
+	            <plugin>
+                     <groupId>org.apache.maven.plugins</groupId>
+                     <artifactId>maven-war-plugin</artifactId>
+                     <version>3.2.2</version>
+                    </plugin>
+ 		    <plugin>
+ 		        <groupId>org.jacoco</groupId>
+ 		        <artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.4</version>
+ 		        <executions>
+ 		            <execution>
+ 		                <id>jacoco-initialize</id>
+ 		                <phase>process-resources</phase>
+ 		                <goals>
+ 		                    <goal>prepare-agent</goal>
+ 		                </goals>
+ 		            </execution>
+ 		            <execution>
+ 		                <id>jacoco-site</id>
+ 		                <phase>post-integration-test</phase>
+ 		                <goals>
+ 		                    <goal>report</goal>
+ 		                </goals>
+ 		            </execution>
+ 		        </executions>
+ 		</plugin>
+		
         </plugins>
     </build>
-
 </project>
